@@ -5,10 +5,11 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/card";
 import { CollapseHistory } from "@/components/collapse-history";
+import { EntropyChatbot } from "@/components/entropy-chatbot";
 import { EntropyMeter } from "@/components/entropy-meter";
 import { EventLog } from "@/components/event-log";
 import { MetricCard } from "@/components/metric-card";
-import { PatternMemory } from "@/components/pattern-memory";
+import { NeuralTopology } from "@/components/neural-topology";
 import { Scanlines } from "@/components/scanlines";
 import { SystemTasks } from "@/components/system-tasks";
 import { themes, useTheme } from "@/components/theme";
@@ -32,7 +33,7 @@ export default function HomePage() {
   } = useSystemState();
   const { theme, setTheme } = useTheme();
   const [isAudioEnabled, setIsAudioEnabled] = useState(true);
-  const [needsInteraction, setNeedsInteraction] = useState(false);
+  const [needsInteraction, setNeedsInteraction] = useState(true);
   const audioInitialized = useRef(false);
 
   const isNearCollapse = state.collapseCountdown < 10 || state.entropy > 90;
@@ -44,26 +45,6 @@ export default function HomePage() {
 
   const lastPatternsCount = useRef(state.patterns.length);
   const lastCycle = useRef(state.evolutionCycle);
-
-  // Auto-start audio on mount
-  useEffect(() => {
-    if (!audioInitialized.current) {
-      const initAudio = async () => {
-        try {
-          await startAudio();
-          audioInitialized.current = true;
-          setNeedsInteraction(false);
-        } catch {
-          console.log("Audio autoplay blocked - user interaction required");
-          setIsAudioEnabled(false);
-          setNeedsInteraction(true);
-        }
-      };
-      // Small delay to ensure page is loaded
-      const timer = setTimeout(initAudio, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [startAudio]);
 
   useEffect(() => {
     if (state.patterns.length > lastPatternsCount.current) {
@@ -392,7 +373,7 @@ export default function HomePage() {
             </div>
 
             {/* CENTER COLUMN: Anomaly Resolver */}
-            <div className="lg:col-span-6 h-full min-h-[500px]">
+            <div className="lg:col-span-5 flex flex-col gap-6">
               <SystemTasks
                 tasks={state.tasks}
                 onComplete={completeTask}
@@ -402,21 +383,18 @@ export default function HomePage() {
             </div>
 
             {/* RIGHT COLUMN: Logs & Patterns */}
-            <div className="lg:col-span-3 space-y-6 flex flex-col">
+            <div className="lg:col-span-4 space-y-6 flex flex-col">
               <div className="flex-1 bg-card/40 border border-primary/10 backdrop-blur-md flex flex-col overflow-hidden rounded-lg min-h-[300px]">
                 <div className="py-2 px-3 border-b border-primary/10 bg-primary/5 flex items-center justify-between">
                   <span className="font-mono text-[10px] tracking-widest text-primary uppercase">
-                    Active Patterns
+                    Neural Topology
                   </span>
                   <span className="font-mono text-[10px] text-primary/70">
-                    {state.patterns.length} DETECTED
+                    {state.patterns.length} ENTITIES
                   </span>
                 </div>
-                <div className="flex-1 p-0 overflow-y-auto max-h-[300px] scrollbar-hide">
-                  <PatternMemory
-                    patterns={state.patterns}
-                    entropy={state.entropy}
-                  />
+                <div className="flex-1 p-0 overflow-hidden relative">
+                  <NeuralTopology state={state} className="h-full" />
                 </div>
               </div>
 
@@ -478,6 +456,9 @@ export default function HomePage() {
           </p>
         </footer>
       </div>
+
+      {/* Floating Chatbot */}
+      <EntropyChatbot entropy={state.entropy} />
     </main>
   );
 }

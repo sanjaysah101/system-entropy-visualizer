@@ -72,13 +72,12 @@ The goal isn't to fix the system, but to surf the edge of destruction, triggerin
 - Adaptive visual hierarchy for system events
 - Realistic "System Core" aesthetic
 
-### 8. **Pattern Memory & Lifecycle** ✅
+### 8. **Neural Topology (Data Vis)** ✅
 
-- Real-time pattern tracking with type classification (ANOMALY, SPIKE, DRIFT, SURGE)
-- Visual lifecycle indicators showing pattern age vs lifespan
-- Ghost traces of recently collapsed patterns
-- Load metrics showing system impact
-- Emergent pattern behavior with unpredictable lifespans
+- **Interactive Force-Directed Graph**: Visualizes system entities as living nodes that repel/attract based on their stability.
+- **Physics-Based Mutation**: Nodes react to cursor movement and system entropy levels (jitter, expansion).
+- **Real-Time Connections**: Dynamic links between core metrics and spawned anomalies.
+- **Visual Feedback**: Nodes glow red/gold during critical system states.
 
 ### 9. **Collapse History Tracker** ✅
 
@@ -100,6 +99,13 @@ The goal isn't to fix the system, but to surf the edge of destruction, triggerin
 - **Schematic Override System**: High-fidelity visual theme selector with "god-mode" cards and instant palette swapping.
 - **Telemetry Stream**: Unified dashboard grouping core system metrics, logs, and anomaly detection into a cohesive "Core Operations" viewport.
 - **Status Bar**: Simplified top-level monitoring strip for build version, offset time, and audio controls.
+
+### 12. **Entropy Chatbot (AI)** ✅
+
+- **Phrase Adoption**: The system "learns" from your input, inexplicably repeating your past phrases back to you to simulate neural synchronization.
+- **Glitch Identity**: Responses decay and fragment as system entropy rises.
+- **Floating Command Terminal**: Always-accessible support interface that mimics a futuristic OS command line.
+- **Responsive Logic**: Shifts from helpful "Systems Online" messages to cryptic, broken fragments as the collapse nears.
 
 ## 🎨 Tron-Themed Design
 
