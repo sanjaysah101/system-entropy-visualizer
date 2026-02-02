@@ -49,6 +49,49 @@ The dashboard visualizes a "System Entropy" mechanic where controlled decay crea
 - Visual effects intensify under high entropy
 - Components glitch when system is unstable
 
+### 6. **Audio Engine** ✅
+
+- Tone.js powered generative soundscape
+- Background drone and noise intensity react to entropy
+- Glitch triggers for pattern spawn and system collapse
+- Low-latency real-time synthesis
+
+### 7. **Anomaly Resolver (Glitchy TODO)** ✅
+
+- Interactive task list to "stabilize" the system
+- Tasks decay over time, increasing system entropy
+- Completion provides stabilization bursts
+- Visual glitch effects proportional to task instability
+
+### 8. **Cinematic HUD** ✅
+
+- Immersive anomaly banners for critical states
+- HUD-style corner frames and status strips
+- Adaptive visual hierarchy for system events
+- Realistic "System Core" aesthetic
+
+### 9. **Pattern Memory & Lifecycle** ✅
+
+- Real-time pattern tracking with type classification (ANOMALY, SPIKE, DRIFT, SURGE)
+- Visual lifecycle indicators showing pattern age vs lifespan
+- Ghost traces of recently collapsed patterns
+- Load metrics showing system impact
+- Emergent pattern behavior with unpredictable lifespans
+
+### 10. **Collapse History Tracker** ✅
+
+- Records peak entropy for each evolution cycle
+- Displays average entropy across all collapses
+- Visual timeline of system evolution
+- Demonstrates how the system learns from failure
+
+### 11. **Interactive 3D Grid** ✅
+
+- Entropy-driven visual distortions
+- Dynamic particle systems that intensify with chaos
+- Camera jitter and movement based on system state
+- Real-time shader effects responding to entropy levels
+
 ## 🎨 Tron-Themed Design
 
 Built using **The Grid** - a Tron-inspired component library with:
@@ -63,6 +106,7 @@ Built using **The Grid** - a Tron-inspired component library with:
 - **Framework**: Next.js 16.1.6 with App Router
 - **Styling**: Tailwind CSS 4 + The Grid components
 - **3D Graphics**: Three.js + React Three Fiber
+- **Audio**: Tone.js (Web Audio API)
 - **Animation**: Framer Motion + GSAP
 - **Type Safety**: TypeScript 5
 
@@ -91,16 +135,22 @@ Visit `http://localhost:3000` to see the dashboard.
 The core system state includes:
 
 - **Entropy**: Grows over time, accelerated by user actions
-- **Patterns**: Emergent entities that spawn and age
+- **Patterns**: Emergent entities with types, lifespans, and load metrics
+- **Tasks**: Anomalies that decay and affect system stability
 - **Metrics**: Four key indicators that drift and influence each other
 - **Glitch Intensity**: Visual distortion based on entropy level
+- **Audio Feedback**: Real-time soundscape reacting to system state
+- **Collapse History**: Tracking evolution cycles and peak entropy
 
 ### Interaction
 
 - **Click Metric Cards**: Inject entropy (+5)
 - **Inject Entropy Button**: Add +10 to entropy
-- **Spawn Pattern Button**: Manually create a pattern
+- **Spawn Pattern Button**: Manually create a pattern with random type and lifespan
+- **Add Tasks**: Deploy anomalies that decay over time
+- **Complete Tasks**: Resolve anomalies for stabilization bursts (-5 entropy)
 - **Trigger Collapse Button**: Force an immediate reset
+- **Audio Toggle**: Enable/disable generative soundscape (auto-plays on load)
 - **Theme Buttons**: Change visual theme (affects colors globally)
 
 ### The Collapse Cycle

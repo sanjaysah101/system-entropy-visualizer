@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Orbitron, Rajdhani, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "./tron-globals.css";
+import "./theme-animations.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 
 const orbitron = Orbitron({

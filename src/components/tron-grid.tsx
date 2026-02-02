@@ -10,64 +10,88 @@ function hexToThreeColor(hex: string): THREE.Color {
   return new THREE.Color(hex);
 }
 
-// Grid floor component
-function GridFloor({ color }: { color: string }) {
+// Main 3D scene component
+interface TronGrid3DProps {
+  className?: string;
+  enableParticles?: boolean;
+  enableBeams?: boolean;
+  cameraAnimation?: boolean;
+  entropy?: number;
+}
+
+// Update sub-components to handle entropy
+function GridFloor({ color, entropy = 0 }: { color: string; entropy?: number }) {
   const meshRef = React.useRef<THREE.Mesh>(null);
   const materialRef = React.useRef<THREE.ShaderMaterial>(null);
 
-  // Keep a ref to the latest color - updated synchronously during render
   const colorRef = React.useRef(color);
   colorRef.current = color;
 
-  // Create uniforms object once using useMemo
   const uniforms = React.useMemo(
     () => ({
       uTime: { value: 0 },
       uColor: { value: hexToThreeColor(color) },
+      uEntropy: { value: 0 },
     }),
-    [], // Create once
+    [color],
   );
 
   useFrame((state) => {
     if (materialRef.current) {
       materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
-      // Always update color from ref (which is always current)
       materialRef.current.uniforms.uColor.value.set(colorRef.current);
+      materialRef.current.uniforms.uEntropy.value = entropy / 100;
     }
   });
 
   const vertexShader = `
     varying vec2 vUv;
     varying vec3 vPosition;
+    uniform float uTime;
+    uniform float uEntropy;
 
     void main() {
       vUv = uv;
-      vPosition = position;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      vec3 pos = position;
+      
+      // Glitch distortion based on entropy
+      if (uEntropy > 0.5) {
+        float noise = sin(pos.x * 10.0 + uTime * 5.0) * cos(pos.z * 10.0 + uTime * 3.0);
+        pos.y += noise * (uEntropy - 0.5) * 2.0;
+      }
+      
+      vPosition = pos;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
     }
   `;
 
   const fragmentShader = `
     uniform float uTime;
     uniform vec3 uColor;
+    uniform float uEntropy;
     varying vec2 vUv;
     varying vec3 vPosition;
 
     void main() {
-      // Create grid lines
       vec2 grid = abs(fract(vPosition.xz * 0.5 - 0.5) - 0.5) / fwidth(vPosition.xz * 0.5);
+      
+      // Distort grid lines as entropy increases
+      if (uEntropy > 0.3) {
+        grid.x += sin(vPosition.z * 0.5 + uTime) * (uEntropy - 0.3);
+      }
+
       float line = min(grid.x, grid.y);
       float gridLine = 1.0 - min(line, 1.0);
 
-      // Distance fade
       float dist = length(vPosition.xz) / 50.0;
       float fade = 1.0 - smoothstep(0.0, 1.0, dist);
 
-      // Pulse effect
       float pulse = sin(uTime * 2.0 - length(vPosition.xz) * 0.3) * 0.2 + 0.8;
+      
+      // Intensity increases with entropy
+      float intensity = 0.6 + (uEntropy * 0.4);
 
-      // Combine
-      float alpha = gridLine * fade * pulse * 0.6;
+      float alpha = gridLine * fade * pulse * intensity;
 
       gl_FragColor = vec4(uColor, alpha);
     }
@@ -172,25 +196,23 @@ function LightBeam({
   );
 }
 
-// Camera controller
-function CameraController() {
+function CameraController({ entropy = 0 }: { entropy?: number }) {
   const { camera } = useThree();
 
   useFrame((state) => {
-    camera.position.x = Math.sin(state.clock.elapsedTime * 0.1) * 2;
-    camera.position.z = 10 + Math.cos(state.clock.elapsedTime * 0.1) * 2;
+    const time = state.clock.elapsedTime;
+    const entropyFactor = entropy / 100;
+    
+    // Camera gets more jittery with entropy
+    const jitter = entropyFactor > 0.7 ? (Math.random() - 0.5) * (entropyFactor - 0.7) * 2 : 0;
+    
+    camera.position.x = Math.sin(time * 0.1) * 2 + jitter;
+    camera.position.y = 5 + Math.sin(time * 0.2) * (1 + entropyFactor * 2);
+    camera.position.z = 10 + Math.cos(time * 0.1) * 2 + jitter;
     camera.lookAt(0, 0, 0);
   });
 
   return null;
-}
-
-// Main 3D scene component
-interface TronGrid3DProps {
-  className?: string;
-  enableParticles?: boolean;
-  enableBeams?: boolean;
-  cameraAnimation?: boolean;
 }
 
 export function TronGrid3D({
@@ -198,6 +220,7 @@ export function TronGrid3D({
   enableParticles = true,
   enableBeams = true,
   cameraAnimation = true,
+  entropy = 0,
 }: TronGrid3DProps) {
   const { theme } = useTheme();
 
@@ -221,11 +244,16 @@ export function TronGrid3D({
       >
         <fog attach="fog" args={["#000", 10, 50]} />
 
-        {cameraAnimation && <CameraController />}
+        {cameraAnimation && <CameraController entropy={entropy} />}
 
-        <GridFloor color={color} />
+        <GridFloor color={color} entropy={entropy} />
 
-        {enableParticles && <Particles color={color} count={150} />}
+        {enableParticles && (
+          <Particles 
+            color={color} 
+            count={150 + Math.floor(entropy)} 
+          />
+        )}
 
         {enableBeams && (
           <>
@@ -238,8 +266,9 @@ export function TronGrid3D({
         )}
 
         <ambientLight intensity={0.1} />
-        <pointLight position={[0, 10, 0]} color={color} intensity={2} />
+        <pointLight position={[0, 10, 0]} color={color} intensity={2 + entropy / 20} />
       </Canvas>
     </div>
   );
 }
+

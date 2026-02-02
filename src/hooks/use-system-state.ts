@@ -8,6 +8,9 @@ export interface Pattern {
   y: number;
   intensity: number;
   age: number;
+  lifespan: number;
+  type: string;
+  load: number;
 }
 
 export interface Metric {
@@ -18,12 +21,21 @@ export interface Metric {
   volatility: number;
 }
 
+export interface Task {
+  id: string;
+  label: string;
+  stability: number; // 0-100
+  isCompleted: boolean;
+  decayRate: number;
+}
+
 export interface SystemState {
   entropy: number; // 0-100
   patterns: Pattern[];
   collapseCountdown: number;
   evolutionCycle: number;
   metrics: Metric[];
+  tasks: Task[];
   glitchIntensity: number;
 }
 
@@ -43,6 +55,7 @@ export function useSystemState() {
       { id: "coherence", label: "Data Coherence", value: 95, drift: -0.05, volatility: 3 },
       { id: "load", label: "Processing Load", value: 42, drift: 0.15, volatility: 8 },
     ],
+    tasks: [],
     glitchIntensity: 0,
   });
 
@@ -58,6 +71,7 @@ export function useSystemState() {
       collapseCountdown: COLLAPSE_INTERVAL,
       evolutionCycle: prev.evolutionCycle + 1,
       patterns: [],
+      tasks: [],
       metrics: prev.metrics.map((m) => ({
         ...m,
         value: Math.random() * 100,
@@ -74,9 +88,36 @@ export function useSystemState() {
     lastUpdateRef.current = now;
 
     setState((prev) => {
+      let extraEntropy = 0;
+
+      // Update tasks and calculate entropy impact
+      const updatedTasks = prev.tasks.map(task => {
+        if (task.isCompleted) return task;
+        
+        const newStability = Math.max(0, task.stability - task.decayRate * deltaTime * 60);
+        
+        // If task stability hits 0, it adds entropy
+        if (newStability === 0 && task.stability > 0) {
+          extraEntropy += 2;
+        }
+
+        return { ...task, stability: newStability };
+      }).filter(task => {
+        // Remove completed tasks after some time or if they are super glitched
+        return !task.isCompleted || task.stability > 20;
+      });
+
+      // Gradually decay stability of completed tasks too for a "glitch out" effect
+      const finalTasks = updatedTasks.map(task => {
+        if (task.isCompleted) {
+          return { ...task, stability: Math.max(0, task.stability - 1 * deltaTime * 60) };
+        }
+        return task;
+      }).filter(task => task.stability > 0 || !task.isCompleted);
+
       const newEntropy = Math.min(
         MAX_ENTROPY,
-        prev.entropy + ENTROPY_GROWTH_RATE * deltaTime * 60
+        prev.entropy + ENTROPY_GROWTH_RATE * deltaTime * 60 + extraEntropy
       );
 
       const newCountdown = Math.max(0, prev.collapseCountdown - deltaTime);
@@ -99,7 +140,7 @@ export function useSystemState() {
           newValue = prev.patterns.length + Math.random() * 10;
         }
         if (metric.id === "load") {
-          newValue += (prev.patterns.length * 0.5);
+          newValue += (prev.patterns.length * 0.5) + (prev.tasks.length * 0.2);
         }
 
         newValue = Math.max(0, Math.min(100, newValue));
@@ -115,6 +156,9 @@ export function useSystemState() {
           y: Math.random(),
           intensity: Math.random() * newEntropy / 100,
           age: 0,
+          lifespan: 30 + Math.random() * 50, // 30-80 frames
+          type: ['ANOMALY', 'SPIKE', 'DRIFT', 'SURGE'][Math.floor(Math.random() * 4)],
+          load: 1 + Math.random() * 4, // 1-5 load
         });
       }
 
@@ -130,6 +174,7 @@ export function useSystemState() {
         collapseCountdown: newCountdown,
         metrics: newMetrics,
         patterns: activePatterns,
+        tasks: finalTasks,
         glitchIntensity,
       };
     });
@@ -157,9 +202,40 @@ export function useSystemState() {
           y: Math.random(),
           intensity: Math.random(),
           age: 0,
+          lifespan: 30 + Math.random() * 50,
+          type: ['ANOMALY', 'SPIKE', 'DRIFT', 'SURGE'][Math.floor(Math.random() * 4)],
+          load: 1 + Math.random() * 4,
         },
       ],
     }));
+  }, []);
+
+  const addTask = useCallback((label: string) => {
+    const newTask: Task = {
+      id: `task-${Date.now()}`,
+      label,
+      stability: 100,
+      isCompleted: false,
+      decayRate: 0.1 + Math.random() * 0.2,
+    };
+    setState(prev => ({
+      ...prev,
+      tasks: [...prev.tasks, newTask],
+      entropy: Math.min(MAX_ENTROPY, prev.entropy + 2) // Adding tasks adds a bit of load/entropy
+    }));
+  }, []);
+
+  const completeTask = useCallback((id: string) => {
+    setState(prev => {
+      const task = prev.tasks.find(t => t.id === id);
+      if (!task || task.isCompleted) return prev;
+
+      return {
+        ...prev,
+        tasks: prev.tasks.map(t => t.id === id ? { ...t, isCompleted: true, stability: 100 } : t),
+        entropy: Math.max(0, prev.entropy - 5) // Completing tasks stabilizes system
+      };
+    });
   }, []);
 
   useEffect(() => {
@@ -182,5 +258,8 @@ export function useSystemState() {
     collapse,
     injectEntropy,
     spawnPattern,
+    addTask,
+    completeTask,
   };
 }
+
