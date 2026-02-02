@@ -41,7 +41,7 @@ export interface SystemState {
 
 const COLLAPSE_INTERVAL = 60; // seconds
 const MAX_ENTROPY = 100;
-const ENTROPY_GROWTH_RATE = 0.05; // per frame
+const ENTROPY_GROWTH_RATE = 0; // per frame (Disabled for manual interaction focus)
 
 export function useSystemState() {
   const [state, setState] = useState<SystemState>({
@@ -222,9 +222,13 @@ export function useSystemState() {
   }, [triggerCollapse]);
 
   const injectEntropy = useCallback((amount: number) => {
+    // Add randomness to user actions (±20%)
+    const variance = 0.8 + Math.random() * 0.4;
+    const finalAmount = amount * variance;
+    
     setState((prev) => ({
       ...prev,
-      entropy: Math.min(MAX_ENTROPY, prev.entropy + amount),
+      entropy: Math.min(MAX_ENTROPY, prev.entropy + finalAmount),
     }));
   }, []);
 
@@ -297,6 +301,7 @@ export function useSystemState() {
   return {
     state,
     collapse,
+    reboot: collapse, // For now, reboot is same as collapse (reset)
     injectEntropy,
     spawnPattern,
     addTask,

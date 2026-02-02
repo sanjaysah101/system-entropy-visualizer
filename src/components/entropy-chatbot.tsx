@@ -25,9 +25,11 @@ const SYSTEM_RESPONSES = [
 
 export function EntropyChatbot({
   entropy,
+  onInteraction,
   className,
 }: {
   entropy: number;
+  onInteraction?: () => void;
   className?: string;
 }) {
   const [messages, setMessages] = useState<Message[]>([
@@ -103,6 +105,7 @@ export function EntropyChatbot({
     setMessages((prev) => [...prev, userMsg]);
     setUserHistory((prev) => [...prev, input]);
     setInput("");
+    onInteraction?.();
 
     // Identify if chaos is triggered
     const isGlitch = entropy > 60;

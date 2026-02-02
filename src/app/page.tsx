@@ -130,23 +130,31 @@ export default function HomePage() {
 
       {/* Near Collapse Banner */}
       {isNearCollapse && !needsInteraction && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center pointer-events-none">
+        <div className="fixed inset-0 z-100 flex items-center justify-center">
           <div className="bg-background/40 backdrop-blur-xl w-full py-12 border-y-2 border-destructive/50 flex flex-col items-center animate-in fade-in zoom-in duration-500">
             <TronAnomalyBanner
               title="SYSTEM COLLAPSE IMMINENT"
               subtitle="CRITICAL ENTROPY THRESHOLD BREACHED"
               className="max-w-4xl"
             />
-            <div className="mt-8 flex items-center gap-8 animate-pulse text-destructive font-mono font-black text-2xl">
-              <span>
-                00:00:
-                {state.collapseCountdown
-                  .toFixed(2)
-                  .split(".")[0]
-                  .padStart(2, "0")}
-              </span>
-              <span>•</span>
-              <span>{state.entropy.toFixed(1)}% ENTROPY</span>
+            <div className="mt-8 flex flex-col items-center gap-4">
+              <div className="flex items-center gap-8 animate-pulse text-destructive font-mono font-black text-2xl">
+                <span>
+                  00:00:
+                  {state.collapseCountdown
+                    .toFixed(2)
+                    .split(".")[0]
+                    .padStart(2, "0")}
+                </span>
+                <span>•</span>
+                <span>{state.entropy.toFixed(1)}% ENTROPY</span>
+              </div>
+              <Button
+                onClick={collapse}
+                className="animate-bounce bg-destructive text-destructive-foreground hover:bg-destructive/90 border-2 border-white/20 tracking-[0.2em] font-bold"
+              >
+                INITIATE SYSTEM REBOOT
+              </Button>
             </div>
           </div>
         </div>
@@ -394,7 +402,11 @@ export default function HomePage() {
                   </span>
                 </div>
                 <div className="flex-1 p-0 overflow-hidden relative">
-                  <NeuralTopology state={state} className="h-full" />
+                  <NeuralTopology
+                    state={state}
+                    className="h-full"
+                    onNodeClick={() => injectEntropy(3)}
+                  />
                 </div>
               </div>
 
@@ -458,7 +470,10 @@ export default function HomePage() {
       </div>
 
       {/* Floating Chatbot */}
-      <EntropyChatbot entropy={state.entropy} />
+      <EntropyChatbot
+        entropy={state.entropy}
+        onInteraction={() => injectEntropy(5)}
+      />
     </main>
   );
 }
