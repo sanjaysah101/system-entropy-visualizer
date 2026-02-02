@@ -1,6 +1,6 @@
 # System Entropy Visualizer
 
-**A Controlled Chaos Dashboard for the "System Collapse" Hackathon**
+> A Controlled Chaos Dashboard for the **System Collapse** Hackathon
 
 ![Built with The Grid](https://img.shields.io/badge/Built%20with-The%20Grid-00d4ff?style=for-the-badge)
 ![Next.js 16](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge)
@@ -22,42 +22,42 @@ The goal isn't to fix the system, but to surf the edge of destruction, triggerin
 
 ## ✨ Implemented Features
 
-### 1. **Entropy Visuals** ✅
+### 1. **Entropy Visuals**
 
 - Real-time entropy meter (0-100%)
 - Progressive visual decay and glitch effects
 - Color mutations based on system state
 - Scanline and distortion effects intensify with entropy
 
-### 2. **Feedback Loops** ✅
+### 2. **Feedback Loops**
 
 - Metrics influence each other dynamically
 - User interactions affect global entropy
 - Pattern spawning triggers load increases
 - Stability decreases as entropy rises
 
-### 3. **Emergent Behavior** ✅
+### 3. **Emergent Behavior**
 
 - Patterns spawn unpredictably based on entropy levels
 - 3D grid evolves with particle and beam effects
 - Simple rules create complex, non-linear behavior
 - Each cycle produces unique system states
 
-### 4. **Collapse Events** ✅
+### 4. **Collapse Events**
 
 - Automatic collapse after 60 seconds OR when entropy hits 100%
 - Manual collapse trigger for user control
 - Each collapse randomizes metrics with new drift rates
 - System "resets" but into a different initial state
 
-### 5. **Adaptive Rules** ✅
+### 5. **Adaptive Rules**
 
 - UI behavior changes based on entropy threshold
 - Animation speeds adapt to system stability
 - Visual effects intensify under high entropy
 - Components glitch when system is unstable
 
-### 6. **Audio Engine** ✅
+### 6. **Audio Engine**
 
 - Tone.js powered generative soundscape
 - Background drone and noise intensity react to entropy
@@ -65,56 +65,47 @@ The goal isn't to fix the system, but to surf the edge of destruction, triggerin
 - Low-latency real-time synthesis
 - **Manual Initialization Protocol**: To prevent unauthorized neural synchronization, the audio core requires a manual "click-to-initialize" handshake on system boot. This feature ensures operator readiness before the sonic interface engages.
 
-### 7. **Cinematic HUD** ✅
+### 7. **Cinematic HUD**
 
 - Immersive anomaly banners for critical states
 - HUD-style corner frames and status strips
 - Adaptive visual hierarchy for system events
 - Realistic "System Core" aesthetic
 
-### 8. **Neural Topology (Data Vis)** ✅
+### 8. **Neural Topology (Data Vis)**
 
 - **Interactive Force-Directed Graph**: Visualizes system entities as living nodes that repel/attract based on their stability.
 - **Physics-Based Mutation**: Nodes react to cursor movement and system entropy levels (jitter, expansion).
 - **Real-Time Connections**: Dynamic links between core metrics and spawned anomalies.
 - **Visual Feedback**: Nodes glow red/gold during critical system states.
 
-### 9. **Collapse History Tracker** ✅
+### 9. **Collapse History Tracker**
 
 - Records peak entropy for each evolution cycle
 - Displays average entropy across all collapses
 - Visual timeline of system evolution
 - Demonstrates how the system learns from failure
 
-### 10. **Interactive 3D Grid** ✅
+### 10. **Interactive 3D Grid**
 
 - Entropy-driven visual distortions
 - Dynamic particle systems that intensify with chaos
 - Camera jitter and movement based on system state
 - Real-time shader effects responding to entropy levels
 
-### 11. **Enhanced UI Architecture** ✅
+### 11. **Enhanced UI Architecture**
 
 - **Hero Command Interface**: Centralized "System Status" visualization with dramatic typography and unified action controls.
 - **Schematic Override System**: High-fidelity visual theme selector with "god-mode" cards and instant palette swapping.
 - **Telemetry Stream**: Unified dashboard grouping core system metrics, logs, and anomaly detection into a cohesive "Core Operations" viewport.
 - **Status Bar**: Simplified top-level monitoring strip for build version, offset time, and audio controls.
 
-### 12. **Entropy Chatbot (AI)** ✅
+### 12. **Entropy Chatbot (AI)**
 
 - **Phrase Adoption**: The system "learns" from your input, inexplicably repeating your past phrases back to you to simulate neural synchronization.
 - **Glitch Identity**: Responses decay and fragment as system entropy rises.
 - **Floating Command Terminal**: Always-accessible support interface that mimics a futuristic OS command line.
 - **Responsive Logic**: Shifts from helpful "Systems Online" messages to cryptic, broken fragments as the collapse nears.
-
-## 🎨 Tron-Themed Design
-
-Built using **The Grid** - a Tron-inspired component library with:
-
-- **6 Theme Variants**: Ares, Tron, Clu, Athena, Aphrodite, Poseidon
-- **3D Effects**: Interactive grid with particles and light beams
-- **Visual Effects**: Scanlines, glows, neon accents
-- **Tron Fonts**: Orbitron (display) and Rajdhani (body)
 
 ## 🛠️ Tech Stack
 
@@ -179,69 +170,5 @@ The core system state includes:
 7. System resets with randomized state
 8. Cycle repeats with new behaviors
 
-## 🎯 Hackathon Alignment
-
-This project directly addresses the "System Collapse" theme by:
-
-1. **Embracing Instability**: The system doesn't fight entropy—it uses it
-2. **Feedback Loops**: Actions cascade through interconnected metrics
-3. **Emergent Complexity**: Simple rules produce unpredictable patterns
-4. **Intentional Failure**: Collapse is a feature, not a bug
-5. **Adaptive Behavior**: The UI evolves based on system state
-
-## 🏗️ Project Structure
-
-```
-src/
-├── app/
-│   ├── layout.tsx          # Theme provider + Tron fonts
-│   ├── page.tsx            # Main dashboard
-│   ├── globals.css         # Base styles
-│   └── tron-globals.css    # Tron theme variables
-├── components/
-│   ├── theme/              # Theme system
-│   ├── tron-grid.tsx       # 3D grid component
-│   ├── entropy-meter.tsx   # Custom entropy display
-│   ├── metric-card.tsx     # Mutating metric cards
-│   └── [25+ Grid components]
-└── hooks/
-    └── use-system-state.ts # Core state management
-```
-
-## 🌟 Key Components
-
-### `useSystemState` Hook
-
-Manages all system state with real-time updates via `requestAnimationFrame`. Implements entropy growth, pattern evolution, metric drift, and collapse logic.
-
-### `TronGrid3D`
-
-Three.js-based 3D grid that responds to entropy levels. Particles and light beams appear/intensify as chaos increases.
-
-### `MetricCard`
-
-Data visualization cards that drift, glitch, and influence each other through feedback loops.
-
-### `EntropyMeter`
-
-Visual gauge showing system entropy with color-coded status (Stable/Warning/Critical) and glitch effects.
-
-## 📈 Future Enhancements
-
-- **Network Mode**: Multi-user entropy synchronization
-- **Pattern Gallery**: View history of emerged patterns
-- **Entropy Presets**: Load predefined chaos scenarios
-- **Audio Feedback**: Sound design that responds to entropy
-- **Advanced Physics**: More complex pattern interactions
-
-## 🙏 Credits
-
-- **The Grid**: Tron-themed component library by @educlopez
-- **shadcn/ui**: Base component architecture
-- **Three.js**: 3D graphics engine
-- **Next.js**: React framework
-
----
-
-**Built for the "System Collapse" Hackathon**  
+**Built for the [System Collapse](https://systemcollapse.dev/) Hackathon**  
 _Where chaos meets control, and breaking things makes them better._
