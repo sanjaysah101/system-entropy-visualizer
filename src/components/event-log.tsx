@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card } from "@/components/card";
 import { cn } from "@/lib/utils";
 
@@ -18,7 +18,12 @@ interface EventLogProps {
   className?: string;
 }
 
-export function EventLog({ entropy, patternsCount, cycle, className }: EventLogProps) {
+export function EventLog({
+  entropy,
+  patternsCount,
+  cycle,
+  className,
+}: EventLogProps) {
   const [events, setEvents] = useState<SystemEvent[]>([]);
   const prevEntropy = useRef(entropy);
   const prevPatterns = useRef(patternsCount);
@@ -77,16 +82,26 @@ export function EventLog({ entropy, patternsCount, cycle, className }: EventLogP
 
   const getEventColor = (type: SystemEvent["type"]) => {
     switch (type) {
-      case "collapse": return "text-destructive";
-      case "warning": return "text-chart-3";
-      case "pattern": return "text-chart-2";
-      case "entropy": return "text-primary";
-      default: return "text-muted-foreground";
+      case "collapse":
+        return "text-destructive";
+      case "warning":
+        return "text-chart-3";
+      case "pattern":
+        return "text-chart-2";
+      case "entropy":
+        return "text-primary";
+      default:
+        return "text-muted-foreground";
     }
   };
 
   return (
-    <Card className={cn("border-primary/30 bg-card/60 backdrop-blur-sm p-4", className)}>
+    <Card
+      className={cn(
+        "border-primary/30 bg-card/60 backdrop-blur-sm p-4",
+        className,
+      )}
+    >
       <div className="mb-3 flex items-center justify-between">
         <h3 className="font-display text-sm font-bold tracking-wider text-primary">
           SYSTEM EVENT LOG
@@ -110,7 +125,12 @@ export function EventLog({ entropy, patternsCount, cycle, className }: EventLogP
             <span className="font-mono text-[10px] text-muted-foreground shrink-0">
               {event.time}
             </span>
-            <span className={cn("font-mono leading-tight", getEventColor(event.type))}>
+            <span
+              className={cn(
+                "font-mono leading-tight",
+                getEventColor(event.type),
+              )}
+            >
               {event.message}
             </span>
           </div>

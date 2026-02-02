@@ -1,7 +1,10 @@
-
 @keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-spin-slow {
@@ -9,8 +12,12 @@
 }
 
 @keyframes scan-task {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(500%); }
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(500%);
+  }
 }
 
 .animate-scan-task {
@@ -18,12 +25,39 @@
 }
 
 @keyframes glitch-text {
-  0% { transform: translate(0); text-shadow: -1px 0 #ff00c1, 1px 0 #00fff9; }
-  20% { transform: translate(-1px, 1px); text-shadow: 1px 0 #ff00c1, -1px 0 #00fff9; }
-  40% { transform: translate(1px, -1px); text-shadow: -1px 0 #ff00c1, 1px 0 #00fff9; }
-  60% { transform: translate(-1px, -1px); text-shadow: 1px 0 #ff00c1, -1px 0 #00fff9; }
-  80% { transform: translate(1px, 1px); text-shadow: -1px 0 #ff00c1, 1px 0 #00fff9; }
-  100% { transform: translate(0); }
+  0% {
+    transform: translate(0);
+    text-shadow:
+      -1px 0 #ff00c1,
+      1px 0 #00fff9;
+  }
+  20% {
+    transform: translate(-1px, 1px);
+    text-shadow:
+      1px 0 #ff00c1,
+      -1px 0 #00fff9;
+  }
+  40% {
+    transform: translate(1px, -1px);
+    text-shadow:
+      -1px 0 #ff00c1,
+      1px 0 #00fff9;
+  }
+  60% {
+    transform: translate(-1px, -1px);
+    text-shadow:
+      1px 0 #ff00c1,
+      -1px 0 #00fff9;
+  }
+  80% {
+    transform: translate(1px, 1px);
+    text-shadow:
+      -1px 0 #ff00c1,
+      1px 0 #00fff9;
+  }
+  100% {
+    transform: translate(0);
+  }
 }
 
 .glitch-text {

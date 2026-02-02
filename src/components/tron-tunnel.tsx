@@ -1,9 +1,9 @@
 "use client";
 
-import * as React from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useTheme } from "@/components/theme";
+import * as React from "react";
 import * as THREE from "three";
+import { useTheme } from "@/components/theme";
 
 // Tunnel ring component
 function TunnelRing({
@@ -18,9 +18,9 @@ function TunnelRing({
   speed: number;
 }) {
   const ringRef = React.useRef<THREE.Mesh>(null);
-  const initialZ = React.useRef(z);
+  const _initialZ = React.useRef(z);
 
-  useFrame((state) => {
+  useFrame((_state) => {
     if (ringRef.current) {
       // Move towards camera and reset
       ringRef.current.position.z += speed;
@@ -61,7 +61,7 @@ function TunnelWalls({ color }: { color: string }) {
       uTime: { value: 0 },
       uColor: { value: new THREE.Color(color) },
     }),
-    [],
+    [color],
   );
 
   useFrame((state) => {

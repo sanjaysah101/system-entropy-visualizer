@@ -1,8 +1,8 @@
 "use client";
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import type * as React from "react";
 import { useTheme } from "@/components/theme";
+import { cn } from "@/lib/utils";
 
 // Complementary colors for each theme
 const complementaryColors: Record<

@@ -1,7 +1,7 @@
 "use client";
 
-import * as React from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
+import * as React from "react";
 import * as THREE from "three";
 
 // Convert hex to THREE.Color
@@ -52,7 +52,7 @@ function HologramMaterial({
       uScanlineIntensity: { value: 0.15 },
       uGlitchIntensity: { value: 0.02 },
     }),
-    [],
+    [color],
   );
 
   useFrame((state) => {

@@ -1,15 +1,15 @@
 "use client";
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
 import {
-  Play,
+  FastForward,
   Pause,
+  Play,
+  Rewind,
   SkipBack,
   SkipForward,
-  Rewind,
-  FastForward,
 } from "lucide-react";
+import type * as React from "react";
+import { cn } from "@/lib/utils";
 
 interface TronVideoPlayerProps extends React.HTMLAttributes<HTMLDivElement> {
   currentTime?: string;
@@ -55,6 +55,7 @@ export function TronVideoPlayer({
 
             {/* Rewind 10 */}
             <button
+              type="button"
               onClick={onRewind}
               className="flex items-center gap-1 px-2 py-1 font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
             >
@@ -64,12 +65,16 @@ export function TronVideoPlayer({
             </button>
 
             {/* Skip back */}
-            <button className="p-1 text-muted-foreground transition-colors hover:text-primary">
+            <button
+              type="button"
+              className="p-1 text-muted-foreground transition-colors hover:text-primary"
+            >
               <SkipBack className="h-4 w-4" />
             </button>
 
             {/* Play/Pause */}
             <button
+              type="button"
               onClick={status === "playing" ? onPause : onPlay}
               className="rounded border border-primary/50 p-2 text-primary transition-all hover:bg-primary/20"
             >
@@ -81,12 +86,16 @@ export function TronVideoPlayer({
             </button>
 
             {/* Skip forward */}
-            <button className="p-1 text-muted-foreground transition-colors hover:text-primary">
+            <button
+              type="button"
+              className="p-1 text-muted-foreground transition-colors hover:text-primary"
+            >
               <SkipForward className="h-4 w-4" />
             </button>
 
             {/* Fast forward 10 */}
             <button
+              type="button"
               onClick={onFastForward}
               className="flex items-center gap-1 px-2 py-1 font-mono text-xs text-muted-foreground transition-colors hover:text-primary"
             >
@@ -137,6 +146,7 @@ export function TronFastForwardOverlay({
         stroke="currentColor"
         strokeWidth="3"
       >
+        <title>Triangle icon</title>
         {direction === "forward" ? (
           <polygon
             points="25,15 85,50 25,85"

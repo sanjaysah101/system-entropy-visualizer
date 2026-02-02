@@ -1,5 +1,5 @@
 /* Orbitron-style font for Tron aesthetic */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap");
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -59,8 +59,8 @@
    ============================================ */
 :root,
 [data-theme="ares"] {
-  --font-orbitron: 'Orbitron', system-ui, sans-serif;
-  --font-rajdhani: 'Rajdhani', system-ui, sans-serif;
+  --font-orbitron: "Orbitron", system-ui, sans-serif;
+  --font-rajdhani: "Rajdhani", system-ui, sans-serif;
   --radius: 0.5rem;
 
   /* Core Tron dark backgrounds - deep black with slight blue tint */
@@ -314,7 +314,12 @@
     font-family: var(--font-rajdhani), system-ui, sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-orbitron), system-ui, sans-serif;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -366,7 +371,8 @@
   }
 
   @keyframes glow-pulse {
-    0%, 100% {
+    0%,
+    100% {
       box-shadow:
         0 0 5px var(--glow),
         0 0 10px var(--glow-muted);
@@ -386,7 +392,7 @@
   }
 
   .scanlines::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(

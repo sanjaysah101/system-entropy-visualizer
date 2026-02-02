@@ -1,16 +1,14 @@
 "use client";
 
-import * as React from "react";
 import dynamic from "next/dynamic";
-import { cn } from "@/lib/utils";
+import * as React from "react";
 import { themes, useTheme } from "@/components/theme";
+import { cn } from "@/lib/utils";
 
 // Dynamic import for 3D component to avoid SSR issues
 const TronGodAvatar3D = dynamic(
   () =>
-    import("@/components/tron-god-avatar").then(
-      (mod) => mod.TronGodAvatar3D,
-    ),
+    import("@/components/tron-god-avatar").then((mod) => mod.TronGodAvatar3D),
   { ssr: false },
 );
 

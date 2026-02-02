@@ -1,17 +1,19 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { Progress } from "@/components/progress";
+import { cn } from "@/lib/utils";
 
 interface EntropyMeterProps {
   value: number; // 0-100
   glitchIntensity?: number; // 0-1
 }
 
-export function EntropyMeter({ value, glitchIntensity = 0 }: EntropyMeterProps) {
+export function EntropyMeter({
+  value,
+  glitchIntensity = 0,
+}: EntropyMeterProps) {
   const level = value / 100;
-  const status =
-    level < 0.5 ? "stable" : level < 0.75 ? "warning" : "critical";
+  const status = level < 0.5 ? "stable" : level < 0.75 ? "warning" : "critical";
 
   const statusColors = {
     stable: "hsl(var(--chart-2))",
@@ -28,7 +30,7 @@ export function EntropyMeter({ value, glitchIntensity = 0 }: EntropyMeterProps) 
         <span
           className={cn(
             "font-mono text-lg font-bold tabular-nums transition-all",
-            glitchIntensity > 0.3 && "glitch-text"
+            glitchIntensity > 0.3 && "glitch-text",
           )}
           style={{ color: statusColors[status] }}
         >
@@ -37,15 +39,15 @@ export function EntropyMeter({ value, glitchIntensity = 0 }: EntropyMeterProps) 
       </div>
 
       <div className="relative">
-        <Progress 
-          value={value} 
+        <Progress
+          value={value}
           className="h-4"
           style={{
-            //@ts-ignore
+            //@ts-expect-error
             "--progress-background": statusColors[status],
           }}
         />
-        
+
         {/* Pulsing indicator for high entropy */}
         {level > 0.7 && (
           <div
@@ -56,12 +58,14 @@ export function EntropyMeter({ value, glitchIntensity = 0 }: EntropyMeterProps) 
       </div>
 
       <div className="flex items-center gap-2">
-        <div className={cn(
-          "h-2 w-2 rounded-full",
-          status === "stable" && "bg-chart-2 animate-pulse",
-          status === "warning" && "bg-chart-3 animate-pulse",
-          status === "critical" && "bg-destructive animate-pulse"
-        )} />
+        <div
+          className={cn(
+            "h-2 w-2 rounded-full",
+            status === "stable" && "bg-chart-2 animate-pulse",
+            status === "warning" && "bg-chart-3 animate-pulse",
+            status === "critical" && "bg-destructive animate-pulse",
+          )}
+        />
         <span className="font-mono text-xs text-muted-foreground">
           {status === "stable" && "SYSTEM STABLE"}
           {status === "warning" && "APPROACHING INSTABILITY"}

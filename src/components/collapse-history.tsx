@@ -1,8 +1,8 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/card";
-import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/card";
+import { cn } from "@/lib/utils";
 
 interface CollapseHistoryProps {
   cycle: number;
@@ -20,16 +20,16 @@ export function CollapseHistory({ cycle, entropy }: CollapseHistoryProps) {
   const [peakEntropy, setPeakEntropy] = useState(0);
 
   useEffect(() => {
-    setPeakEntropy(prev => Math.max(prev, entropy));
+    setPeakEntropy((prev) => Math.max(prev, entropy));
   }, [entropy]);
 
   useEffect(() => {
     if (cycle > 0) {
-      setHistory(prev => {
+      setHistory((prev) => {
         const newRecord: CollapseRecord = {
           cycle: cycle - 1,
           timestamp: Date.now(),
-          peakEntropy: peakEntropy
+          peakEntropy: peakEntropy,
         };
         const updated = [...prev, newRecord].slice(-10); // Keep last 10
         return updated;
@@ -38,9 +38,10 @@ export function CollapseHistory({ cycle, entropy }: CollapseHistoryProps) {
     }
   }, [cycle, peakEntropy]);
 
-  const avgEntropy = history.length > 0 
-    ? history.reduce((sum, r) => sum + r.peakEntropy, 0) / history.length 
-    : 0;
+  const avgEntropy =
+    history.length > 0
+      ? history.reduce((sum, r) => sum + r.peakEntropy, 0) / history.length
+      : 0;
 
   return (
     <Card className="border-primary/20 bg-card/60 backdrop-blur-xl">
@@ -86,16 +87,20 @@ export function CollapseHistory({ cycle, entropy }: CollapseHistoryProps) {
                   key={record.cycle}
                   className={cn(
                     "flex items-center justify-between p-2 rounded border transition-all",
-                    idx === 0 
-                      ? "border-primary/40 bg-primary/10" 
-                      : "border-primary/10 bg-background/20"
+                    idx === 0
+                      ? "border-primary/40 bg-primary/10"
+                      : "border-primary/10 bg-background/20",
                   )}
                 >
                   <div className="flex items-center gap-2">
-                    <div className={cn(
-                      "w-1.5 h-1.5 rounded-full",
-                      idx === 0 ? "bg-primary animate-pulse" : "bg-primary/40"
-                    )} />
+                    <div
+                      className={cn(
+                        "w-1.5 h-1.5 rounded-full",
+                        idx === 0
+                          ? "bg-primary animate-pulse"
+                          : "bg-primary/40",
+                      )}
+                    />
                     <span className="font-mono text-[10px] text-foreground">
                       CYCLE {record.cycle.toString().padStart(3, "0")}
                     </span>
@@ -104,9 +109,11 @@ export function CollapseHistory({ cycle, entropy }: CollapseHistoryProps) {
                     <div className="font-mono text-[9px] text-muted-foreground">
                       {record.peakEntropy.toFixed(1)}%
                     </div>
-                    <div 
+                    <div
                       className="h-1.5 rounded-full bg-linear-to-r from-primary/20 to-destructive/60"
-                      style={{ width: `${Math.max(20, record.peakEntropy * 0.4)}px` }}
+                      style={{
+                        width: `${Math.max(20, record.peakEntropy * 0.4)}px`,
+                      }}
                     />
                   </div>
                 </div>

@@ -1,9 +1,9 @@
 "use client";
 
-import * as React from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useTheme } from "@/components/theme/theme-provider";
+import * as React from "react";
 import * as THREE from "three";
+import { useTheme } from "@/components/theme/theme-provider";
 
 // Convert hex to THREE.Color
 function hexToThreeColor(hex: string): THREE.Color {
@@ -20,7 +20,13 @@ interface TronGrid3DProps {
 }
 
 // Update sub-components to handle entropy
-function GridFloor({ color, entropy = 0 }: { color: string; entropy?: number }) {
+function GridFloor({
+  color,
+  entropy = 0,
+}: {
+  color: string;
+  entropy?: number;
+}) {
   const meshRef = React.useRef<THREE.Mesh>(null);
   const materialRef = React.useRef<THREE.ShaderMaterial>(null);
 
@@ -202,10 +208,13 @@ function CameraController({ entropy = 0 }: { entropy?: number }) {
   useFrame((state) => {
     const time = state.clock.elapsedTime;
     const entropyFactor = entropy / 100;
-    
+
     // Camera gets more jittery with entropy
-    const jitter = entropyFactor > 0.7 ? (Math.random() - 0.5) * (entropyFactor - 0.7) * 2 : 0;
-    
+    const jitter =
+      entropyFactor > 0.7
+        ? (Math.random() - 0.5) * (entropyFactor - 0.7) * 2
+        : 0;
+
     camera.position.x = Math.sin(time * 0.1) * 2 + jitter;
     camera.position.y = 5 + Math.sin(time * 0.2) * (1 + entropyFactor * 2);
     camera.position.z = 10 + Math.cos(time * 0.1) * 2 + jitter;
@@ -249,10 +258,7 @@ export function TronGrid3D({
         <GridFloor color={color} entropy={entropy} />
 
         {enableParticles && (
-          <Particles 
-            color={color} 
-            count={150 + Math.floor(entropy)} 
-          />
+          <Particles color={color} count={150 + Math.floor(entropy)} />
         )}
 
         {enableBeams && (
@@ -266,9 +272,12 @@ export function TronGrid3D({
         )}
 
         <ambientLight intensity={0.1} />
-        <pointLight position={[0, 10, 0]} color={color} intensity={2 + entropy / 20} />
+        <pointLight
+          position={[0, 10, 0]}
+          color={color}
+          intensity={2 + entropy / 20}
+        />
       </Canvas>
     </div>
   );
 }
-

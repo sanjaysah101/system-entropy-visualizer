@@ -8,9 +8,17 @@
 
 ## 🌀 Concept
 
-This project explores the **sweet spot between order and chaos**, demonstrating how systems become more interesting when they embrace instability rather than fighting it.
+**"Most software is designed to prevent errors. This project is designed to cultivate them."**
 
-The dashboard visualizes a "System Entropy" mechanic where controlled decay creates emergent patterns, feedback loops cause cascading effects, and periodic "collapse events" reset the system into new states.
+The **System Entropy Visualizer** explores the hackathon theme "System Collapse" by turning instability into a creative force. It creates a "living" UI where specific metrics—CPU drift, neural load, and memory leaks—interact in complex feedback loops.
+
+As users interact with the system (or leave it to idle), **Entropy** rises. This single variable drives every part of the experience:
+
+- **Visuals:** A 3D Tron-inspired grid begins to jitter and fragment.
+- **Audio:** A generative synthesizer shifts from harmonic drones to dissonant noise.
+- **Interface:** Buttons and cards begin to drift and glitch using reactive CSS animations.
+
+The goal isn't to fix the system, but to surf the edge of destruction, triggering "collapse events" that reset the environment into unique, randomized configurations. It demonstrates how complex systems learn and evolve through failure.
 
 ## ✨ Implemented Features
 
@@ -55,22 +63,16 @@ The dashboard visualizes a "System Entropy" mechanic where controlled decay crea
 - Background drone and noise intensity react to entropy
 - Glitch triggers for pattern spawn and system collapse
 - Low-latency real-time synthesis
+- **Manual Initialization Protocol**: To prevent unauthorized neural synchronization, the audio core requires a manual "click-to-initialize" handshake on system boot. This feature ensures operator readiness before the sonic interface engages.
 
-### 7. **Anomaly Resolver (Glitchy TODO)** ✅
-
-- Interactive task list to "stabilize" the system
-- Tasks decay over time, increasing system entropy
-- Completion provides stabilization bursts
-- Visual glitch effects proportional to task instability
-
-### 8. **Cinematic HUD** ✅
+### 7. **Cinematic HUD** ✅
 
 - Immersive anomaly banners for critical states
 - HUD-style corner frames and status strips
 - Adaptive visual hierarchy for system events
 - Realistic "System Core" aesthetic
 
-### 9. **Pattern Memory & Lifecycle** ✅
+### 8. **Pattern Memory & Lifecycle** ✅
 
 - Real-time pattern tracking with type classification (ANOMALY, SPIKE, DRIFT, SURGE)
 - Visual lifecycle indicators showing pattern age vs lifespan
@@ -78,19 +80,26 @@ The dashboard visualizes a "System Entropy" mechanic where controlled decay crea
 - Load metrics showing system impact
 - Emergent pattern behavior with unpredictable lifespans
 
-### 10. **Collapse History Tracker** ✅
+### 9. **Collapse History Tracker** ✅
 
 - Records peak entropy for each evolution cycle
 - Displays average entropy across all collapses
 - Visual timeline of system evolution
 - Demonstrates how the system learns from failure
 
-### 11. **Interactive 3D Grid** ✅
+### 10. **Interactive 3D Grid** ✅
 
 - Entropy-driven visual distortions
 - Dynamic particle systems that intensify with chaos
 - Camera jitter and movement based on system state
 - Real-time shader effects responding to entropy levels
+
+### 11. **Enhanced UI Architecture** ✅
+
+- **Hero Command Interface**: Centralized "System Status" visualization with dramatic typography and unified action controls.
+- **Schematic Override System**: High-fidelity visual theme selector with "god-mode" cards and instant palette swapping.
+- **Telemetry Stream**: Unified dashboard grouping core system metrics, logs, and anomaly detection into a cohesive "Core Operations" viewport.
+- **Status Bar**: Simplified top-level monitoring strip for build version, offset time, and audio controls.
 
 ## 🎨 Tron-Themed Design
 

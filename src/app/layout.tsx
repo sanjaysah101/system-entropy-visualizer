@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Orbitron, Rajdhani, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Orbitron, Rajdhani } from "next/font/google";
 import "./globals.css";
 import "./tron-globals.css";
 import "./theme-animations.css";
@@ -24,7 +24,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "System Entropy Visualizer | Controlled Chaos Dashboard",
-  description: "A real-time dashboard exploring the sweet spot between order and chaos",
+  description:
+    "A real-time dashboard exploring the sweet spot between order and chaos",
 };
 
 export default function RootLayout({

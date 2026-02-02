@@ -1,8 +1,8 @@
 "use client";
 
 import { Card } from "@/components/card";
-import { cn } from "@/lib/utils";
 import type { Metric } from "@/hooks/use-system-state";
+import { cn } from "@/lib/utils";
 
 interface MetricCardProps {
   metric: Metric;
@@ -11,26 +11,35 @@ interface MetricCardProps {
   onClick?: () => void;
 }
 
-export function MetricCard({ metric, entropy, glitchIntensity, onClick }: MetricCardProps) {
+export function MetricCard({
+  metric,
+  entropy,
+  glitchIntensity,
+  onClick,
+}: MetricCardProps) {
   const value = metric.value;
   const isDrifting = Math.abs(metric.drift) > 0.05;
   const isVolatile = entropy > 50;
 
   // Color based on type and value
   const getColor = () => {
-    if (metric.id === "stability" && value < 50) return "hsl(var(--destructive))";
+    if (metric.id === "stability" && value < 50)
+      return "hsl(var(--destructive))";
     if (metric.id === "patterns" && value > 80) return "hsl(var(--chart-3))";
-    if (metric.id === "coherence" && value < 70) return "hsl(var(--chart-3))";  
+    if (metric.id === "coherence" && value < 70) return "hsl(var(--chart-3))";
     if (metric.id === "load" && value > 60) return "hsl(var(--destructive))";
     return "hsl(var(--primary))";
   };
 
   const color = getColor();
 
-  const glitchStyle = glitchIntensity > 0.5 ? {
-    animation: `drift ${2 / glitchIntensity}s infinite`,
-    filter: `hue-rotate(${glitchIntensity * 30}deg)`,
-  } : {};
+  const glitchStyle =
+    glitchIntensity > 0.5
+      ? {
+          animation: `drift ${2 / glitchIntensity}s infinite`,
+          filter: `hue-rotate(${glitchIntensity * 30}deg)`,
+        }
+      : {};
 
   return (
     <Card
@@ -59,10 +68,14 @@ export function MetricCard({ metric, entropy, glitchIntensity, onClick }: Metric
             {metric.label}
           </span>
           {isDrifting && (
-            <span className={cn(
-              "rounded-full px-1.5 py-0.5 font-mono text-[10px]",
-              metric.drift > 0 ? "bg-chart-2/20 text-chart-2" : "bg-destructive/20 text-destructive"
-            )}>
+            <span
+              className={cn(
+                "rounded-full px-1.5 py-0.5 font-mono text-[10px]",
+                metric.drift > 0
+                  ? "bg-chart-2/20 text-chart-2"
+                  : "bg-destructive/20 text-destructive",
+              )}
+            >
               {metric.drift > 0 ? "↑" : "↓"}
             </span>
           )}
@@ -81,9 +94,7 @@ export function MetricCard({ metric, entropy, glitchIntensity, onClick }: Metric
             </span>
           )}
           {metric.id !== "patterns" && (
-            <span className="font-mono text-sm text-muted-foreground">
-              %
-            </span>
+            <span className="font-mono text-sm text-muted-foreground">%</span>
           )}
         </div>
 
@@ -91,9 +102,7 @@ export function MetricCard({ metric, entropy, glitchIntensity, onClick }: Metric
         {isVolatile && (
           <div className="flex items-center gap-1">
             <div className="h-1 w-1 animate-ping rounded-full bg-primary" />
-            <span className="font-mono text-[10px] text-primary">
-              VOLATILE
-            </span>
+            <span className="font-mono text-[10px] text-primary">VOLATILE</span>
           </div>
         )}
       </div>

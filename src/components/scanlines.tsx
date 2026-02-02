@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 interface ScanlinesProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -46,29 +46,6 @@ export function Scanlines({
       {animated && (
         <div className="pointer-events-none absolute left-0 right-0 z-50 h-[2px] animate-scan-sweep bg-primary/20" />
       )}
-
-      <style jsx>{`
-        @keyframes scan-sweep {
-          0% {
-            top: -2px;
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            top: 100%;
-            opacity: 0;
-          }
-        }
-
-        .animate-scan-sweep {
-          animation: scan-sweep 8s ease-in-out infinite;
-        }
-      `}</style>
     </div>
   );
 }
